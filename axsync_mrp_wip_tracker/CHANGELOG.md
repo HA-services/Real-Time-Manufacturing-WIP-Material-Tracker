@@ -9,4 +9,4 @@
 - Work Center Analysis report based on work orders.
 - WIP material valuation at standard cost (operational estimate).
 - Multi-company record rules and read-only access for the Manufacturing User group.
-- Optional bridge module `axsync_mrp_wip_tracker_subcontracting` (auto-installs with Subcontracting).
+- Built-in subcontracting tracking that activates when the Subcontracting app is installed. No separate module.

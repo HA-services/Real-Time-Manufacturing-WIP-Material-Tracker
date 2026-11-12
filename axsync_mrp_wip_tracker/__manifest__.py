@@ -8,6 +8,7 @@
     'category': 'Manufacturing/Manufacturing',
     'author': 'AXSync',
     'website': 'https://www.axsync.com',
+    'support': 'hunain@axsync.com',
     'license': 'OPL-1',
     'price': 95.00,
     'currency': 'USD',

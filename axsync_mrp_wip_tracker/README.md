@@ -4,12 +4,9 @@ Odoo 17.0 | Category: Manufacturing | License: OPL-1 | Publisher: AXSync (www.ax
 
 Read-only reporting on top of standard Odoo Manufacturing: WIP dashboard, material consumption, variance, shortages, scrap and work center analysis.
 
-## Modules in this package
+## One module
 
-| Module | Purpose |
-|---|---|
-| `axsync_mrp_wip_tracker` | The application. Depends only on `mrp`. |
-| `axsync_mrp_wip_tracker_subcontracting` | Bridge. Installs automatically when `mrp_subcontracting` is installed. Adds subcontractor and subcontracted flag. |
+`axsync_mrp_wip_tracker` is a single, self-contained module. It depends only on `mrp`. Subcontracting tracking is built in and switches on by itself when the Subcontracting app is installed.
 
 ## Requirements
 
@@ -19,9 +16,9 @@ Read-only reporting on top of standard Odoo Manufacturing: WIP dashboard, materi
 
 ## Installation
 
-1. Copy both module folders into a directory on your Odoo `addons_path` (or add the Git repository branch `17.0` on Odoo.sh).
+1. Copy the `axsync_mrp_wip_tracker` folder into a directory on your Odoo `addons_path` (or add the Git repository branch `17.0` on Odoo.sh).
 2. Restart Odoo and update the Apps list (developer mode, Apps, Update Apps List).
-3. Install **Manufacturing WIP Tracker**. If Subcontracting is installed, the bridge module installs with it.
+3. Install **Manufacturing WIP Tracker**.
 
 ## Access
 
@@ -60,7 +57,7 @@ Standard cost is resolved in this order: company specific cost, global cost, the
 
 ## Subcontracting
 
-With the bridge module, an order is subcontracted when its bill of materials is of type Subcontracting or it has a subcontractor. The Manufacturing Order Analysis gains a Subcontractor column (hidden by default), a Subcontracted filter and a Subcontractor group-by. The dashboard gains an Open subcontracting orders tile. Stock held at subcontractor locations is not reported separately.
+When the Subcontracting app is installed, an order is subcontracted when its bill of materials is of type Subcontracting or it has a subcontractor. The Manufacturing Order Analysis gains a Subcontractor column (hidden by default), a Subcontracted filter and a Subcontractor group-by. The dashboard gains an Open subcontracting orders tile. Stock held at subcontractor locations is not reported separately.
 
 ## Known limitations
 

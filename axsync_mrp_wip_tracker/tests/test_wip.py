@@ -37,10 +37,12 @@ class TestAxsyncWip(TestMrpCommon):
 
     def _row(self, mo):
         self.env.flush_all()  # SQL views read the database: write pending ORM changes first
+        self.env.invalidate_all()  # and drop cached view rows from earlier reads
         return self.env['axsync.wip.production'].search([('production_id', '=', mo.id)])
 
     def _comps(self, mo):
         self.env.flush_all()
+        self.env.invalidate_all()
         return self.env['axsync.wip.component'].search([('production_id', '=', mo.id)])
 
     def test_planned_and_reserved(self):
@@ -176,3 +178,18 @@ class TestAxsyncWip(TestMrpCommon):
             data = self.env['axsync.wip.production'].get_dashboard_data(days)
             keys = {t['key'] for t in data['tiles']}
             self.assertTrue({'open', 'progress', 'delayed', 'shortage', 'wip', 'scrap'} <= keys)
+
+    def test_subcontracting_columns_without_subcontracting_app(self):
+        """The module is self-contained: the subcontracting columns exist even if the app is absent."""
+        mo = self._mo(1)
+        row = self._row(mo)
+        self.assertFalse(row.subcontractor_id)
+        self.assertEqual(row.is_subcontract, self.env['axsync.wip.production']._has_subcontracting() and row.is_subcontract)
+        self.assertFalse(row.is_subcontract)
+
+    def test_register_hook_rebuilds_missing_view(self):
+        model = self.env['axsync.wip.production']
+        self.env.cr.execute('DROP VIEW axsync_wip_production CASCADE')
+        model._register_hook()
+        self.assertTrue(model._view_flag())
+        self.assertEqual(model.search_count([]), model.search_count([]))

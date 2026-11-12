@@ -55,17 +55,44 @@ class AxsyncWipProduction(models.Model):
     scrap_value = fields.Monetary('Scrap Value', readonly=True)
     workorder_count = fields.Integer('Work Orders', readonly=True)
     workorder_done_count = fields.Integer('Work Orders Done', readonly=True)
+    subcontractor_id = fields.Many2one('res.partner', string='Subcontractor', readonly=True,
+                                       help="Filled when Subcontracting is installed.")
+    is_subcontract = fields.Boolean('Subcontracted', readonly=True,
+                                    help="Order created from a Subcontracting bill of materials or having a subcontractor. "
+                                         "Always false when Subcontracting is not installed.")
     is_open = fields.Boolean('Open', readonly=True)
     is_delayed = fields.Boolean('Delayed', readonly=True,
                                 help="Deadline has passed and the order is not done or cancelled.")
 
-    def _select_extra(self):
-        return ''
+    @api.model
+    def _has_subcontracting(self):
+        """True when the optional Subcontracting app has added its column to manufacturing orders."""
+        self.env.cr.execute("""
+            SELECT 1 FROM information_schema.columns
+             WHERE table_schema = current_schema()
+               AND table_name = 'mrp_production' AND column_name = 'subcontractor_id'""")
+        return bool(self.env.cr.fetchone())
 
-    def _join_extra(self):
-        return ''
+    @api.model
+    def _view_flag(self):
+        """Read the subcontracting marker stored as a comment on the view. None if the view is missing."""
+        self.env.cr.execute("SELECT obj_description(to_regclass(%s), 'pg_class')", [self._table])
+        row = self.env.cr.fetchone()
+        return row[0] if row else None
+
+    def _register_hook(self):
+        # Subcontracting can be installed or removed after this module. Rebuild the view when its
+        # shape no longer matches (or when uninstalling Subcontracting dropped it).
+        expected = 'subcontracting=1' if self._has_subcontracting() else 'subcontracting=0'
+        if self._view_flag() != expected:
+            self.init()
+        return super()._register_hook()
 
     def init(self):
+        has_sub = self._has_subcontracting()
+        sub_select = ('mo.subcontractor_id AS subcontractor_id, '
+                      "(COALESCE(bom.type, '') = 'subcontract' OR mo.subcontractor_id IS NOT NULL) AS is_subcontract"
+                      ) if has_sub else "NULL::int AS subcontractor_id, (COALESCE(bom.type, '') = 'subcontract') AS is_subcontract"
         self.env.cr.execute('DROP VIEW IF EXISTS %s CASCADE' % self._table)
         self.env.cr.execute("""
             CREATE OR REPLACE VIEW %s AS (
@@ -100,7 +127,7 @@ class AxsyncWipProduction(models.Model):
                        (mo.state IN ('confirmed','progress','to_close')
                         AND mo.date_deadline IS NOT NULL
                         AND mo.date_deadline < (NOW() AT TIME ZONE 'UTC')) AS is_delayed
-                       %s
+                       , %s
                   FROM mrp_production mo
                   LEFT JOIN (
                         SELECT sm.production_id, SUM(sm.quantity) AS qty
@@ -128,9 +155,10 @@ class AxsyncWipProduction(models.Model):
                                COUNT(*) FILTER (WHERE w.state = 'done') AS wo_done
                           FROM mrp_workorder w GROUP BY w.production_id
                   ) wo ON wo.production_id = mo.id
-                  %s
+                  LEFT JOIN mrp_bom bom ON bom.id = mo.bom_id
             )
-        """ % (self._table, self._select_extra(), component_query(), scrap_query(), self._join_extra()))
+        """ % (self._table, sub_select, component_query(), scrap_query()))
+        self.env.cr.execute("COMMENT ON VIEW %s IS %%s" % self._table, ['subcontracting=1' if has_sub else 'subcontracting=0'])
 
     # ------------------------------------------------------------------
     # Dashboard
@@ -154,6 +182,10 @@ class AxsyncWipProduction(models.Model):
              'domain': open_dom + [('has_shortage', '=', True)],
              'value': self.search_count(open_dom + [('has_shortage', '=', True)]), 'tone': 'warning'},
         ]
+        if self._has_subcontracting():
+            sub_dom = [('is_subcontract', '=', True), ('is_open', '=', True)]
+            tiles.append({'key': 'subcontract', 'label': 'Open subcontracting orders', 'model': prod,
+                          'domain': sub_dom, 'value': self.search_count(sub_dom), 'tone': 'primary'})
         wip = self.read_group(open_dom, ['wip_value:sum'], [])
         tiles.append({'key': 'wip', 'label': 'WIP material value', 'model': prod,
                       'domain': open_dom, 'value': wip[0]['wip_value'] if wip else 0.0,

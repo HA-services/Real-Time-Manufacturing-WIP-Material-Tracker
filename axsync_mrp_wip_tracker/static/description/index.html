@@ -56,7 +56,7 @@
           <tr><td>Planned versus actual</td><td>Variance quantity and value on every finished component line.</td></tr>
           <tr><td>Material shortages</td><td>Planned quantity minus reserved or consumed quantity, flagged on open orders.</td></tr>
           <tr><td>Delayed orders</td><td>Open orders past their deadline are flagged, filtered and listed on the dashboard.</td></tr>
-          <tr><td>Subcontracting</td><td>Optional bridge module flags subcontracting orders and shows the subcontractor.</td></tr>
+          <tr><td>Subcontracting</td><td>Flags subcontracting orders and shows the subcontractor when the Subcontracting app is installed.</td></tr>
           <tr><td>WIP reporting</td><td>Consumed material value on open orders, valued at standard cost.</td></tr>
         </tbody>
       </table>
@@ -70,7 +70,7 @@
       <h2 style="margin-bottom: 15px;">Feature Breakdown</h2>
 
       <h4 style="margin-top: 20px;">1. Real-Time WIP Dashboard</h4>
-      <p>A dashboard with six KPI tiles: open orders, orders in progress, delayed orders, orders with a material shortage, WIP material value and scrap value for a period you choose (7, 30, 90 days, 12 months or all time). A seventh tile counts open subcontracting orders when the bridge module is installed. Every tile opens the matching list for drill-down. Two lists show the delayed orders and the largest component shortages, and each row opens the manufacturing order. The figures are computed when the dashboard loads.</p>
+      <p>A dashboard with six KPI tiles: open orders, orders in progress, delayed orders, orders with a material shortage, WIP material value and scrap value for a period you choose (7, 30, 90 days, 12 months or all time). A seventh tile counts open subcontracting orders when the Subcontracting app is installed. Every tile opens the matching list for drill-down. Two lists show the delayed orders and the largest component shortages, and each row opens the manufacturing order. The figures are computed when the dashboard loads.</p>
 
       <h4 style="margin-top: 20px;">2. Manufacturing Order Analysis</h4>
       <p>One row per manufacturing order with state, material readiness, deadline, progress, work orders completed, components short, planned, consumed, WIP and variance values, and scrap value. Progress is the produced quantity divided by the quantity to produce. Available as list, pivot and graph.</p>
@@ -91,7 +91,7 @@
       <p>One row per work order with work center, status, expected duration and real duration in minutes, and the duration variance on finished work orders. Pivot by work center and status.</p>
 
       <h4 style="margin-top: 20px;">8. Subcontracting Tracking</h4>
-      <p>Included as a separate bridge module, <em>WIP Tracker Subcontract</em>, that installs automatically when Subcontracting is installed. It flags subcontracted orders, shows the subcontractor, adds a Subcontracted filter and a Subcontractor group-by, and adds the dashboard tile. Component consumption for subcontracting orders appears in the standard component report. Stock held at the subcontractor location is not reported separately.</p>
+      <p>Built into the same module, with no extra app to install. When the Subcontracting app is installed, the module flags subcontracted orders, shows the subcontractor, adds a Subcontracted filter and a Subcontractor group-by, and adds the dashboard tile. Component consumption for subcontracting orders appears in the standard component report. Stock held at the subcontractor location is not reported separately.</p>
 
       <h4 style="margin-top: 20px;">9. WIP Material Valuation</h4>
       <p>WIP material value is the consumed component quantity multiplied by the product's standard cost, for orders that are not yet done. It is an operational estimate. It is not an accounting valuation and it does not create journal entries.</p>
@@ -163,7 +163,7 @@
           <tr><th style="width: 30%;">Odoo version</th><td>17.0 only</td></tr>
           <tr><th>Community</th><td>Compatible. Tested on the Odoo 17.0 Community source.</td></tr>
           <tr><th>Enterprise</th><td>Not tested. The module uses only standard Manufacturing models, but no Enterprise test run has been performed.</td></tr>
-          <tr><th>Required Odoo apps</th><td>Manufacturing (mrp). Subcontracting (mrp_subcontracting) is optional and enables the bridge module.</td></tr>
+          <tr><th>Required Odoo apps</th><td>Manufacturing (mrp). Subcontracting (mrp_subcontracting) is optional. When installed, the module also shows subcontracted orders and their subcontractors.</td></tr>
           <tr><th>Python libraries</th><td>None beyond Odoo itself.</td></tr>
           <tr><th>Work orders</th><td>Work center reports need work orders enabled in Manufacturing settings.</td></tr>
           <tr><th>Multi-company</th><td>Supported through record rules. Covered by an automated test.</td></tr>
@@ -198,7 +198,7 @@
       <h5>Does it track actual material consumption?</h5>
       <p>Yes. It reports quantities picked or done on component lines, with values at standard cost, next to the planned quantities.</p>
       <h5>Does it support subcontracting?</h5>
-      <p>Yes, through the bridge module that installs automatically with Subcontracting. It flags subcontracting orders and shows the subcontractor. It does not report stock held at the subcontractor separately.</p>
+      <p>Yes, built in. When the Subcontracting app is installed, the module flags subcontracting orders and shows the subcontractor. It does not report stock held at the subcontractor separately.</p>
       <h5>Can I export reports?</h5>
       <p>Yes. Use the standard Odoo export on any list or pivot view.</p>
       <h5>Does it require additional Python libraries?</h5>
@@ -206,7 +206,7 @@
       <h5>How do I install the module?</h5>
       <p>Copy the module folders into your addons path, update the Apps list, and install Manufacturing WIP Tracker. On Odoo.sh, add the repository branch. Full steps are in the README.</p>
       <h5>How can I contact AXSync for support?</h5>
-      <p>Use the Contact the Author option on this Odoo Apps Store page. Purchasers can also use the support contact shown after purchase.</p>
+      <p>Email <a href="mailto:hunain@axsync.com">hunain@axsync.com</a> or use the Contact the Author option on this Odoo Apps Store page.</p>
     </div>
   </div>
 </section>
@@ -217,7 +217,8 @@
       <h2 style="margin-bottom: 15px;">Support and Publisher</h2>
       <p><strong>Published by AXSync</strong></p>
       <p>Website: www.axsync.com</p>
-      <p>Support requests go through the Contact the Author option on the Odoo Apps Store page. Please include your Odoo version, the module version, and what you expected to see. Screenshots help.</p>
+      <p>Support email: <a href="mailto:hunain@axsync.com">hunain@axsync.com</a></p>
+      <p>Email <a href="mailto:hunain@axsync.com">hunain@axsync.com</a> or use the Contact the Author option on the Odoo Apps Store page. Please include your Odoo version, the module version, and what you expected to see. Screenshots help.</p>
       <p class="text-muted" style="font-size: 13px;">This module is published by AXSync and is not an official Odoo product. Odoo is a trademark of Odoo S.A.</p>
     </div>
   </div>

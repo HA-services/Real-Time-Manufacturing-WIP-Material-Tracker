@@ -24,6 +24,7 @@
                 <field name="variance_value" sum="Total" optional="show"/>
                 <field name="scrap_value" sum="Total" optional="show"/>
                 <field name="user_id" optional="hide"/>
+                <field name="subcontractor_id" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
                 <field name="currency_id" column_invisible="True"/>
                 <field name="is_delayed" column_invisible="True"/>
@@ -40,6 +41,7 @@
                 <field name="production_id"/>
                 <field name="product_id"/>
                 <field name="user_id"/>
+                <field name="subcontractor_id"/>
                 <filter name="open" string="Open" domain="[('is_open', '=', True)]"/>
                 <filter name="in_progress" string="In Progress" domain="[('state', '=', 'progress')]"/>
                 <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
@@ -48,6 +50,7 @@
                 <filter name="shortage" string="With Material Shortage" domain="[('has_shortage', '=', True), ('is_open', '=', True)]"/>
                 <filter name="with_scrap" string="With Scrap" domain="[('scrap_count', '&gt;', 0)]"/>
                 <filter name="with_variance" string="With Material Variance" domain="[('variance_value', '!=', 0)]"/>
+                <filter name="subcontract" string="Subcontracted" domain="[('is_subcontract', '=', True)]"/>
                 <separator/>
                 <filter name="deadline_month" string="Deadline This Month"
                         domain="[('date_deadline', '&gt;=', (context_today().replace(day=1)).strftime('%Y-%m-%d')),
@@ -56,6 +59,7 @@
                     <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
                     <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
                     <filter name="group_user" string="Responsible" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_subcontractor" string="Subcontractor" context="{'group_by': 'subcontractor_id'}"/>
                     <filter name="group_deadline" string="Deadline" context="{'group_by': 'date_deadline:month'}"/>
                     <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
                 </group>
