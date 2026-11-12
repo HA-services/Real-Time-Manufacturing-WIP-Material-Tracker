@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_axsync_wip_production_user,axsync.wip.production user,model_axsync_wip_production,mrp.group_mrp_user,1,0,0,0
+access_axsync_wip_component_user,axsync.wip.component user,model_axsync_wip_component,mrp.group_mrp_user,1,0,0,0
+access_axsync_wip_scrap_user,axsync.wip.scrap user,model_axsync_wip_scrap,mrp.group_mrp_user,1,0,0,0
+access_axsync_wip_workcenter_user,axsync.wip.workcenter user,model_axsync_wip_workcenter,mrp.group_mrp_user,1,0,0,0
