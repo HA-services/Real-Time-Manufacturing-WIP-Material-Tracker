@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="axsync_wip_dashboard_action" model="ir.actions.client">
+        <field name="name">WIP Dashboard</field>
+        <field name="tag">axsync_wip_dashboard</field>
+    </record>
+</odoo>

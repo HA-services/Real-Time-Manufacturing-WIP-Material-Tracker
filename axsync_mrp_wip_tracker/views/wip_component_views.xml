@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="axsync_wip_component_view_list" model="ir.ui.view">
+        <field name="name">axsync.wip.component.list</field>
+        <field name="model">axsync.wip.component</field>
+        <field name="arch" type="xml">
+            <list string="Material Consumption and Variance" create="0" edit="0" delete="0"
+                  decoration-danger="has_shortage" decoration-warning="is_over_consumed">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="finished_product_id" optional="hide"/>
+                <field name="mo_state" widget="badge" optional="show"/>
+                <field name="product_uom_id" optional="show"/>
+                <field name="planned_qty" sum="Total"/>
+                <field name="reserved_qty" sum="Total"/>
+                <field name="consumed_qty" sum="Total"/>
+                <field name="shortage_qty" sum="Total"/>
+                <field name="variance_qty" sum="Total"/>
+                <field name="consumed_value" sum="Total"/>
+                <field name="variance_value" sum="Total"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="has_shortage" column_invisible="True"/>
+                <field name="is_over_consumed" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="axsync_wip_component_view_search" model="ir.ui.view">
+        <field name="name">axsync.wip.component.search</field>
+        <field name="model">axsync.wip.component</field>
+        <field name="arch" type="xml">
+            <search string="Search Components">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="finished_product_id"/>
+                <filter name="open" string="Open Orders" domain="[('is_open', '=', True)]"/>
+                <filter name="shortage" string="Shortage" domain="[('shortage_qty', '&gt;', 0)]"/>
+                <filter name="over" string="Over-consumed" domain="[('variance_qty', '&gt;', 0)]"/>
+                <filter name="under" string="Under-consumed" domain="[('variance_qty', '&lt;', 0)]"/>
+                    <filter name="group_component" string="Component" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_mo" string="Manufacturing Order" context="{'group_by': 'production_id'}"/>
+                    <filter name="group_finished" string="Finished Product" context="{'group_by': 'finished_product_id'}"/>
+                    <filter name="group_mo_state" string="MO State" context="{'group_by': 'mo_state'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="axsync_wip_component_view_pivot" model="ir.ui.view">
+        <field name="name">axsync.wip.component.pivot</field>
+        <field name="model">axsync.wip.component</field>
+        <field name="arch" type="xml">
+            <pivot string="Material Consumption and Variance" sample="1">
+                <field name="product_id" type="row"/>
+                <field name="planned_value" type="measure"/>
+                <field name="consumed_value" type="measure"/>
+                <field name="variance_value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="axsync_wip_component_view_graph" model="ir.ui.view">
+        <field name="name">axsync.wip.component.graph</field>
+        <field name="model">axsync.wip.component</field>
+        <field name="arch" type="xml">
+            <graph string="Material Consumption and Variance" type="bar" sample="1">
+                <field name="product_id"/>
+                <field name="planned_value" type="measure"/>
+                <field name="consumed_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="axsync_wip_component_action" model="ir.actions.act_window">
+        <field name="name">Material Consumption and Variance</field>
+        <field name="res_model">axsync.wip.component</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+
+    <record id="axsync_wip_shortage_action" model="ir.actions.act_window">
+        <field name="name">Material Shortages</field>
+        <field name="res_model">axsync.wip.component</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="domain">[('shortage_qty', '&gt;', 0)]</field>
+        <field name="context">{'search_default_group_component': 1}</field>
+    </record>
+</odoo>

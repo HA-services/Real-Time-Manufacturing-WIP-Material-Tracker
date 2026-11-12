@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="axsync_wip_menu_root" name="WIP Tracker" parent="mrp.menu_mrp_reporting" sequence="5"
+              groups="mrp.group_mrp_user"/>
+    <menuitem id="axsync_wip_menu_dashboard" name="WIP Dashboard" parent="axsync_wip_menu_root"
+              action="axsync_wip_dashboard_action" sequence="1"/>
+    <menuitem id="axsync_wip_menu_production" name="Manufacturing Order Analysis" parent="axsync_wip_menu_root"
+              action="axsync_wip_production_action" sequence="10"/>
+    <menuitem id="axsync_wip_menu_component" name="Material Consumption and Variance" parent="axsync_wip_menu_root"
+              action="axsync_wip_component_action" sequence="20"/>
+    <menuitem id="axsync_wip_menu_shortage" name="Material Shortages" parent="axsync_wip_menu_root"
+              action="axsync_wip_shortage_action" sequence="30"/>
+    <menuitem id="axsync_wip_menu_scrap" name="Scrap Analysis" parent="axsync_wip_menu_root"
+              action="axsync_wip_scrap_action" sequence="40"/>
+    <menuitem id="axsync_wip_menu_workcenter" name="Work Center Analysis" parent="axsync_wip_menu_root"
+              action="axsync_wip_workcenter_action" sequence="50"/>
+</odoo>

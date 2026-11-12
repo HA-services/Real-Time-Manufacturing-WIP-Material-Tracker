@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="axsync_mrp_wip_tracker.Dashboard">
+        <div class="o_action axsync_wip_dashboard overflow-auto">
+            <div class="d-flex align-items-center justify-content-between px-4 pt-4 pb-2">
+                <div>
+                    <h2 class="mb-0">WIP Dashboard</h2>
+                    <div class="text-muted">Live view of open manufacturing orders, material and scrap</div>
+                </div>
+                <select class="form-select w-auto" t-on-change="onPeriodChange">
+                    <t t-foreach="periods" t-as="p" t-key="p.value">
+                        <option t-att-value="p.value" t-att-selected="p.value === state.days"><t t-esc="p.label"/></option>
+                    </t>
+                </select>
+            </div>
+            <t t-if="state.data">
+                <div class="row g-3 px-4 py-3">
+                    <t t-foreach="state.data.tiles" t-as="tile" t-key="tile.key">
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div t-attf-class="card axsync_tile axsync_tile_#{tile.tone} h-100" role="button"
+                                 t-on-click="() => this.openTile(tile)">
+                                <div class="card-body">
+                                    <div class="axsync_tile_label"><t t-esc="tile.label"/></div>
+                                    <div class="axsync_tile_value"><t t-esc="formatValue(tile)"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <div class="row g-3 px-4 pb-4">
+                    <div class="col-12 col-xl-6">
+                        <div class="card h-100">
+                            <div class="card-header fw-bold">Delayed manufacturing orders</div>
+                            <div class="card-body p-0">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>Order</th><th>Product</th><th>Deadline</th><th class="text-end">Progress</th></tr></thead>
+                                    <tbody>
+                                        <tr t-if="!state.data.delayed.length"><td colspan="4" class="text-muted text-center py-3">No delayed orders.</td></tr>
+                                        <tr t-foreach="state.data.delayed" t-as="r" t-key="r.id" role="button" t-on-click="() => this.openProduction(r.id)">
+                                            <td><t t-esc="r.name"/></td>
+                                            <td><t t-esc="r.product"/></td>
+                                            <td><t t-esc="r.deadline"/></td>
+                                            <td class="text-end"><t t-esc="r.progress"/> %</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <div class="card h-100">
+                            <div class="card-header fw-bold">Largest component shortages on open orders</div>
+                            <div class="card-body p-0">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>Order</th><th>Component</th><th class="text-end">Short by</th></tr></thead>
+                                    <tbody>
+                                        <tr t-if="!state.data.shortages.length"><td colspan="3" class="text-muted text-center py-3">No component shortages.</td></tr>
+                                        <tr t-foreach="state.data.shortages" t-as="r" t-key="r_index" role="button" t-on-click="() => this.openProduction(r.id)">
+                                            <td><t t-esc="r.name"/></td>
+                                            <td><t t-esc="r.product"/></td>
+                                            <td class="text-end"><t t-esc="r.short"/> <t t-esc="r.uom"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
