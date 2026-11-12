@@ -1,0 +1,9 @@
+id,name,model_id,group_id/id,operation,domain
+axsync_wip_production_user,AXSync WIP MO analysis: Manufacturing users read,axsync.wip.production,mrp.group_mrp_user,r,
+axsync_wip_component_user,AXSync WIP components: Manufacturing users read,axsync.wip.component,mrp.group_mrp_user,r,
+axsync_wip_scrap_user,AXSync WIP scrap: Manufacturing users read,axsync.wip.scrap,mrp.group_mrp_user,r,
+axsync_wip_workcenter_user,AXSync WIP work centers: Manufacturing users read,axsync.wip.workcenter,mrp.group_mrp_user,r,
+axsync_wip_production_company_rule,AXSync WIP MO analysis: multi-company,axsync.wip.production,,crud,"[('company_id', 'in', company_ids + [False])]"
+axsync_wip_component_company_rule,AXSync WIP components: multi-company,axsync.wip.component,,crud,"[('company_id', 'in', company_ids + [False])]"
+axsync_wip_scrap_company_rule,AXSync WIP scrap: multi-company,axsync.wip.scrap,,crud,"[('company_id', 'in', company_ids + [False])]"
+axsync_wip_workcenter_company_rule,AXSync WIP work centers: multi-company,axsync.wip.workcenter,,crud,"[('company_id', 'in', company_ids + [False])]"

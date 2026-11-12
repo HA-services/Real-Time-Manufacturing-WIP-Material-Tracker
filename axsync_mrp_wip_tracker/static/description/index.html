@@ -1,0 +1,235 @@
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0; border-bottom: 1px solid #dee2e6;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <img src="axsync_icon.png" class="img img-fluid" alt="AXSync" style="margin: 0 0 10px 0;"/>
+        </div>
+        <div class="col-md-10">
+          <p class="text-muted" style="margin: 0; font-size: 14px;">AXSync | Odoo 20.0 | Manufacturing</p>
+          <h1 style="margin: 5px 0 10px 0; font-size: 36px;">AXSync Real-Time Manufacturing WIP &amp; Material Tracker</h1>
+          <h3 class="text-muted" style="margin: 0 0 15px 0;">Know Exactly What's Happening Across Your Manufacturing Operations.</h3>
+          <p style="font-size: 17px;">Track work in progress, material consumption, production delays, scrap, and component shortages from one centralized Odoo dashboard.</p>
+          <p><strong>Value in one line:</strong> a read-only reporting layer on top of standard Odoo Manufacturing. It does not change how you manufacture. It shows you what is happening.</p>
+          <p><span class="badge badge-primary">Odoo 20.0 Community</span> <span class="badge badge-secondary">Requires only Manufacturing (mrp)</span> <span class="badge badge-secondary">No extra Python libraries</span></p>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+          <img src="axsync_screenshot_1.png" class="img img-fluid" alt="WIP dashboard with KPI tiles, delayed orders and component shortages" style="border: 1px solid #dee2e6;"/>
+          <p class="text-muted" style="margin: 5px 0 0 0; font-size: 13px;">The WIP Dashboard, captured from the module running on Odoo 20.0 with sample data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">The Business Problems</h2>
+      <p>Standard Odoo records every manufacturing order, component move and scrap. Answering simple operational questions still means opening many records or exporting to a spreadsheet.</p>
+      <div class="row">
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>No central view of active production</h5><p class="text-muted" style="margin: 0;">Open orders, their state and their deadlines live on separate screens.</p></div></div></div>
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>Actual consumption is hard to follow</h5><p class="text-muted" style="margin: 0;">Planned and consumed quantities sit on different lines of each order.</p></div></div></div>
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>Manual planned versus actual checks</h5><p class="text-muted" style="margin: 0;">Variance usually ends up in a spreadsheet maintained by hand.</p></div></div></div>
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>Material shortages show up late</h5><p class="text-muted" style="margin: 0;">A short component is often noticed only when the line stops.</p></div></div></div>
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>Limited visibility of delays</h5><p class="text-muted" style="margin: 0;">Orders past their deadline are not easy to list and rank.</p></div></div></div>
+        <div class="col-md-4" style="margin-bottom: 15px;"><div class="card"><div class="card-body"><h5>Subcontracted work is hard to track</h5><p class="text-muted" style="margin: 0;">Subcontracting orders are mixed in with in-house production.</p></div></div></div>
+        <div class="col-md-12"><div class="card"><div class="card-body"><h5>No consolidated WIP reporting</h5><p class="text-muted" style="margin: 0;">There is no single place showing the material value tied up in open orders.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">The Solution</h2>
+      <p>The module adds a WIP Tracker menu under Manufacturing &gt; Reporting. Each report reads live data from your existing orders, component moves, work orders and scrap records. Nothing is copied, nothing is duplicated.</p>
+      <p class="text-center" style="font-size: 17px; padding: 15px; border: 1px solid #dee2e6;"><strong>Manufacturing Orders</strong> &rarr; <strong>Material Tracking</strong> &rarr; <strong>Production Progress</strong> &rarr; <strong>Scrap &amp; Variance</strong> &rarr; <strong>WIP Dashboard</strong> &rarr; <strong>Reports</strong></p>
+      <table class="table table-bordered">
+        <thead class="thead-light"><tr><th>Problem</th><th>How the module addresses it</th></tr></thead>
+        <tbody>
+          <tr><td>No central view</td><td>One dashboard with KPI tiles for open, in progress, delayed and short orders.</td></tr>
+          <tr><td>Actual consumption</td><td>Per-component planned, reserved and consumed quantities and values.</td></tr>
+          <tr><td>Planned versus actual</td><td>Variance quantity and value on every finished component line.</td></tr>
+          <tr><td>Material shortages</td><td>Planned quantity minus reserved or consumed quantity, flagged on open orders.</td></tr>
+          <tr><td>Delayed orders</td><td>Open orders past their deadline are flagged, filtered and listed on the dashboard.</td></tr>
+          <tr><td>Subcontracting</td><td>Flags subcontracting orders and shows the subcontractor when the Subcontracting app is installed.</td></tr>
+          <tr><td>WIP reporting</td><td>Consumed material value on open orders, valued at standard cost.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Feature Breakdown</h2>
+
+      <h4 style="margin-top: 20px;">1. Real-Time WIP Dashboard</h4>
+      <p>A dashboard with six KPI tiles: open orders, orders in progress, delayed orders, orders with a material shortage, WIP material value and scrap value for a period you choose (7, 30, 90 days, 12 months or all time). A seventh tile counts open subcontracting orders when the Subcontracting app is installed. Every tile opens the matching list for drill-down. Two lists show the delayed orders and the largest component shortages, and each row opens the manufacturing order. The figures are computed when the dashboard loads.</p>
+
+      <h4 style="margin-top: 20px;">2. Manufacturing Order Analysis</h4>
+      <p>One row per manufacturing order with state, material readiness, deadline, progress, work orders completed, components short, planned, consumed, WIP and variance values, and scrap value. Progress is the produced quantity divided by the quantity to produce. Available as list, pivot and graph.</p>
+
+      <h4 style="margin-top: 20px;">3. Material Consumption Tracking</h4>
+      <p>One row per component line. Quantities are split into planned, reserved and consumed. A line counts as consumed once it is picked or done, which follows the standard Odoo 20 behaviour. All quantities are expressed in the product's own unit of measure.</p>
+
+      <h4 style="margin-top: 20px;">4. Material Variance Analysis</h4>
+      <p>For finished component lines, variance is consumed minus planned, in quantity and in value. Over-consumed and under-consumed filters help you find the lines that need attention.</p>
+
+      <h4 style="margin-top: 20px;">5. Material Shortage Detection</h4>
+      <p>On open orders, a component is short when its planned quantity is not fully reserved or consumed. A dedicated Material Shortages report groups shortages by component, with the shortage value.</p>
+
+      <h4 style="margin-top: 20px;">6. Scrap Tracking</h4>
+      <p>Validated scrap records linked to manufacturing orders, with scrapped product, quantity, date and value. Group by product, order or month.</p>
+
+      <h4 style="margin-top: 20px;">7. Work Center Analysis</h4>
+      <p>One row per work order with work center, status, expected duration and real duration in minutes, and the duration variance on finished work orders. Pivot by work center and status.</p>
+
+      <h4 style="margin-top: 20px;">8. Subcontracting Tracking</h4>
+      <p>Built into the same module, with no extra app to install. When the Subcontracting app is installed, the module flags subcontracted orders, shows the subcontractor, adds a Subcontracted filter and a Subcontractor group-by, and adds the dashboard tile. Component consumption for subcontracting orders appears in the standard component report. Stock held at the subcontractor location is not reported separately.</p>
+
+      <h4 style="margin-top: 20px;">9. WIP Material Valuation</h4>
+      <p>WIP material value is the consumed component quantity multiplied by the product's standard cost, for orders that are not yet done. It is an operational estimate. It is not an accounting valuation and it does not create journal entries.</p>
+
+      <h4 style="margin-top: 20px;">10. Search, Filters and Exports</h4>
+      <p>Every report has search fields, ready-made filters, group-by options and totals. Lists and pivots use the standard Odoo export. Reports respect your multi-company access rules.</p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Screenshots</h2>
+      <p class="text-muted">All screenshots come from the module running on Odoo 20.0 with sample manufacturing data.</p>
+      <h5 style="margin-top: 20px;">1. Main WIP dashboard</h5>
+      <img src="axsync_screenshot_1.png" class="img img-fluid" alt="Main WIP dashboard" style="border: 1px solid #dee2e6;"/>
+      <h5 style="margin-top: 25px;">2. Manufacturing order material analysis</h5>
+      <img src="axsync_screenshot_2.png" class="img img-fluid" alt="Manufacturing order analysis list" style="border: 1px solid #dee2e6;"/>
+      <h5 style="margin-top: 25px;">3. Material consumption and variance</h5>
+      <img src="axsync_screenshot_3.png" class="img img-fluid" alt="Material consumption and variance list" style="border: 1px solid #dee2e6;"/>
+      <h5 style="margin-top: 25px;">4. Work center analysis</h5>
+      <img src="axsync_screenshot_4.png" class="img img-fluid" alt="Work center analysis pivot" style="border: 1px solid #dee2e6;"/>
+      <p class="text-muted" style="margin-top: 5px; font-size: 13px;">The sample data in these screenshots has no subcontracting orders, so subcontracting is described in the feature list rather than pictured.</p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Business Benefits</h2>
+      <div class="row">
+        <div class="col-md-4"><h5>Better production visibility</h5><p class="text-muted">Planners and managers see open, late and blocked orders in one place.</p></div>
+        <div class="col-md-4"><h5>Faster shortage identification</h5><p class="text-muted">Shortages are listed with the order and the component involved.</p></div>
+        <div class="col-md-4"><h5>Improved material accountability</h5><p class="text-muted">Planned and consumed quantities sit side by side with variance values.</p></div>
+        <div class="col-md-4"><h5>Easier monitoring of orders</h5><p class="text-muted">Filters, group-by and drill-down replace manual searching.</p></div>
+        <div class="col-md-4"><h5>Less reliance on spreadsheets</h5><p class="text-muted">The comparison is available live inside Odoo and exportable when needed.</p></div>
+        <div class="col-md-4"><h5>More informed decisions</h5><p class="text-muted">WIP value, scrap and work center durations support day-to-day production decisions.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">How It Works</h2>
+      <ol>
+        <li><strong>Install the module.</strong> Install Manufacturing WIP Tracker from the Apps menu.</li>
+        <li><strong>Configure access permissions.</strong> Users with the Manufacturing User or Manager role get read access automatically. No other setup is required.</li>
+        <li><strong>Open the WIP dashboard.</strong> Go to Manufacturing &gt; Reporting &gt; WIP Tracker &gt; WIP Dashboard.</li>
+        <li><strong>Select filters.</strong> Choose the period on the dashboard, use the company switcher, and use the search filters in each report.</li>
+        <li><strong>Review manufacturing progress.</strong> Open Manufacturing Order Analysis for state, progress and values.</li>
+        <li><strong>Drill down into material consumption.</strong> Click a tile or open Material Consumption and Variance.</li>
+        <li><strong>Investigate variances and shortages.</strong> Use the Over-consumed and Shortage filters, or the Material Shortages report.</li>
+        <li><strong>Export reports.</strong> Use the standard Odoo export on any list or pivot.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Compatibility and Requirements</h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr><th style="width: 30%;">Odoo version</th><td>20.0 only</td></tr>
+          <tr><th>Community</th><td>Compatible. Tested on the Odoo 20.0 Community source.</td></tr>
+          <tr><th>Enterprise</th><td>Not tested. The module uses only standard Manufacturing models, but no Enterprise test run has been performed.</td></tr>
+          <tr><th>Required Odoo apps</th><td>Manufacturing (mrp). Subcontracting (mrp_subcontracting) is optional. When installed, the module also shows subcontracted orders and their subcontractors.</td></tr>
+          <tr><th>Python libraries</th><td>None beyond Odoo itself.</td></tr>
+          <tr><th>Work orders</th><td>Work center reports need work orders enabled in Manufacturing settings.</td></tr>
+          <tr><th>Multi-company</th><td>Supported through record rules. Covered by an automated test.</td></tr>
+          <tr><th>Data and services</th><td>Read-only. No external services. No data stored by the module beyond standard Odoo records.</td></tr>
+        </tbody>
+      </table>
+      <h5>Known limitations</h5>
+      <ul>
+        <li>WIP value uses the product's standard cost. It is not an accounting valuation.</li>
+        <li>An order is delayed when its deadline has passed and it is not done or cancelled. Orders without a deadline are never flagged.</li>
+        <li>Shortage is based on reserved quantity. It does not look at incoming purchase or production.</li>
+        <li>Scrap is reported for scrap records linked to a manufacturing order.</li>
+        <li>Stock held at subcontractor locations is not reported separately.</li>
+        <li>The reports are database views. Changes are visible after they are saved.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Frequently Asked Questions</h2>
+      <h5>Does this module work with Odoo 20 Community?</h5>
+      <p>Yes. It depends only on the Manufacturing app and was tested on Odoo 20.0 Community.</p>
+      <h5>Does it work with Odoo Enterprise?</h5>
+      <p>It uses only standard Manufacturing models and is expected to work, but it has not been tested on Enterprise.</p>
+      <h5>Does it modify standard Odoo files?</h5>
+      <p>No. It adds new reporting models, views and menus. It does not change standard models or core code.</p>
+      <h5>Does it support multiple companies?</h5>
+      <p>Yes. Each report is restricted to the companies the user may access.</p>
+      <h5>Does it track actual material consumption?</h5>
+      <p>Yes. It reports quantities picked or done on component lines, with values at standard cost, next to the planned quantities.</p>
+      <h5>Does it support subcontracting?</h5>
+      <p>Yes, built in. When the Subcontracting app is installed, the module flags subcontracting orders and shows the subcontractor. It does not report stock held at the subcontractor separately.</p>
+      <h5>Can I export reports?</h5>
+      <p>Yes. Use the standard Odoo export on any list or pivot view.</p>
+      <h5>Does it require additional Python libraries?</h5>
+      <p>No.</p>
+      <h5>How do I install the module?</h5>
+      <p>Copy the module folders into your addons path, update the Apps list, and install Manufacturing WIP Tracker. On Odoo.sh, add the repository branch. Full steps are in the README.</p>
+      <h5>How can I contact AXSync for support?</h5>
+      <p>Email <a href="mailto:hunain@axsync.com">hunain@axsync.com</a> or use the Contact the Author option on this Odoo Apps Store page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0;">
+    <div class="container">
+      <h2 style="margin-bottom: 15px;">Support and Publisher</h2>
+      <p><strong>Published by AXSync</strong></p>
+      <p>Website: www.axsync.com</p>
+      <p>Support email: <a href="mailto:hunain@axsync.com">hunain@axsync.com</a></p>
+      <p>Email <a href="mailto:hunain@axsync.com">hunain@axsync.com</a> or use the Contact the Author option on the Odoo Apps Store page. Please include your Odoo version, the module version, and what you expected to see. Screenshots help.</p>
+      <p class="text-muted" style="font-size: 13px;">This module is published by AXSync and is not an official Odoo product. Odoo is a trademark of Odoo S.A.</p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced" style="padding: 30px 0; background-color: #f8f9fa;">
+    <div class="container text-center">
+      <h2 style="margin-bottom: 10px;">Get Better Visibility Into Your Manufacturing Operations.</h2>
+      <p style="font-size: 17px;">Install AXSync Real-Time Manufacturing WIP &amp; Material Tracker and manage production progress, material consumption and WIP from one place.</p>
+      <p><strong>www.axsync.com</strong></p>
+    </div>
+  </div>
+</section>
