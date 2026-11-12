@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="axsync_wip_production_view_list_subcontract" model="ir.ui.view">
+        <field name="name">axsync.wip.production.list.subcontract</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="inherit_id" ref="axsync_mrp_wip_tracker.axsync_wip_production_view_list"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="subcontractor_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="axsync_wip_production_view_search_subcontract" model="ir.ui.view">
+        <field name="name">axsync.wip.production.search.subcontract</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="inherit_id" ref="axsync_mrp_wip_tracker.axsync_wip_production_view_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="subcontractor_id"/>
+            </field>
+            <filter name="with_variance" position="after">
+                <filter name="subcontract" string="Subcontracted" domain="[('is_subcontract', '=', True)]"/>
+            </filter>
+            <filter name="group_user" position="after">
+                <filter name="group_subcontractor" string="Subcontractor" context="{'group_by': 'subcontractor_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

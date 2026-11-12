@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="axsync_wip_production_view_list" model="ir.ui.view">
+        <field name="name">axsync.wip.production.list</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="arch" type="xml">
+            <tree string="Manufacturing Order Analysis" create="0" edit="0" delete="0"
+                  decoration-danger="is_delayed" decoration-warning="has_shortage and not is_delayed"
+                  decoration-muted="state in ('done', 'cancel')">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="state" widget="badge"/>
+                <field name="reservation_state" optional="show"/>
+                <field name="date_deadline"/>
+                <field name="product_qty" optional="hide"/>
+                <field name="produced_qty" optional="hide"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="workorder_done_count" optional="hide"/>
+                <field name="workorder_count" optional="hide"/>
+                <field name="shortage_count" sum="Total" optional="show"/>
+                <field name="planned_value" sum="Total" optional="hide"/>
+                <field name="consumed_value" sum="Total" optional="show"/>
+                <field name="wip_value" sum="Total"/>
+                <field name="variance_value" sum="Total" optional="show"/>
+                <field name="scrap_value" sum="Total" optional="show"/>
+                <field name="user_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="is_delayed" column_invisible="True"/>
+                <field name="has_shortage" column_invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="axsync_wip_production_view_search" model="ir.ui.view">
+        <field name="name">axsync.wip.production.search</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="arch" type="xml">
+            <search string="Search Manufacturing Orders">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="user_id"/>
+                <filter name="open" string="Open" domain="[('is_open', '=', True)]"/>
+                <filter name="in_progress" string="In Progress" domain="[('state', '=', 'progress')]"/>
+                <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="delayed" string="Delayed" domain="[('is_delayed', '=', True)]"/>
+                <filter name="shortage" string="With Material Shortage" domain="[('has_shortage', '=', True), ('is_open', '=', True)]"/>
+                <filter name="with_scrap" string="With Scrap" domain="[('scrap_count', '&gt;', 0)]"/>
+                <filter name="with_variance" string="With Material Variance" domain="[('variance_value', '!=', 0)]"/>
+                <separator/>
+                <filter name="deadline_month" string="Deadline This Month"
+                        domain="[('date_deadline', '&gt;=', (context_today().replace(day=1)).strftime('%Y-%m-%d')),
+                                 ('date_deadline', '&lt;', ((context_today().replace(day=1) + relativedelta(months=1))).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_user" string="Responsible" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_deadline" string="Deadline" context="{'group_by': 'date_deadline:month'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="axsync_wip_production_view_pivot" model="ir.ui.view">
+        <field name="name">axsync.wip.production.pivot</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="arch" type="xml">
+            <pivot string="Manufacturing Order Analysis" sample="1">
+                <field name="state" type="row"/>
+                <field name="wip_value" type="measure"/>
+                <field name="consumed_value" type="measure"/>
+                <field name="planned_value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="axsync_wip_production_view_graph" model="ir.ui.view">
+        <field name="name">axsync.wip.production.graph</field>
+        <field name="model">axsync.wip.production</field>
+        <field name="arch" type="xml">
+            <graph string="Manufacturing Order Analysis" type="bar" sample="1">
+                <field name="state"/>
+                <field name="wip_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="axsync_wip_production_action" model="ir.actions.act_window">
+        <field name="name">Manufacturing Order Analysis</field>
+        <field name="res_model">axsync.wip.production</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Multi-company: users only see rows of the companies they are allowed to access. -->
+    <record id="axsync_wip_production_company_rule" model="ir.rule">
+        <field name="name">AXSync WIP MO analysis: multi-company</field>
+        <field name="model_id" ref="model_axsync_wip_production"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="axsync_wip_component_company_rule" model="ir.rule">
+        <field name="name">AXSync WIP components: multi-company</field>
+        <field name="model_id" ref="model_axsync_wip_component"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="axsync_wip_scrap_company_rule" model="ir.rule">
+        <field name="name">AXSync WIP scrap: multi-company</field>
+        <field name="model_id" ref="model_axsync_wip_scrap"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="axsync_wip_workcenter_company_rule" model="ir.rule">
+        <field name="name">AXSync WIP work centers: multi-company</field>
+        <field name="model_id" ref="model_axsync_wip_workcenter"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

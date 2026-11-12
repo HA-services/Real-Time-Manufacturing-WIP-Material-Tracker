@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="axsync_wip_workcenter_view_list" model="ir.ui.view">
+        <field name="name">axsync.wip.workcenter.list</field>
+        <field name="model">axsync.wip.workcenter</field>
+        <field name="arch" type="xml">
+            <tree string="Work Center Analysis" create="0" edit="0" delete="0"
+                  decoration-info="state == 'progress'" decoration-muted="state in ('done', 'cancel')">
+                <field name="workcenter_id"/>
+                <field name="workorder_id"/>
+                <field name="production_id"/>
+                <field name="product_id" optional="show"/>
+                <field name="state" widget="badge"/>
+                <field name="date_start" optional="show"/>
+                <field name="date_finished" optional="hide"/>
+                <field name="duration_expected" sum="Total"/>
+                <field name="duration" sum="Total"/>
+                <field name="duration_variance" sum="Total"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="axsync_wip_workcenter_view_search" model="ir.ui.view">
+        <field name="name">axsync.wip.workcenter.search</field>
+        <field name="model">axsync.wip.workcenter</field>
+        <field name="arch" type="xml">
+            <search string="Search Work Orders">
+                <field name="workcenter_id"/>
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <filter name="open" string="Open" domain="[('is_open', '=', True)]"/>
+                <filter name="in_progress" string="In Progress" domain="[('state', '=', 'progress')]"/>
+                <filter name="done" string="Finished" domain="[('state', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_workcenter" string="Work Center" context="{'group_by': 'workcenter_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="axsync_wip_workcenter_view_pivot" model="ir.ui.view">
+        <field name="name">axsync.wip.workcenter.pivot</field>
+        <field name="model">axsync.wip.workcenter</field>
+        <field name="arch" type="xml">
+            <pivot string="Work Center Analysis" sample="1">
+                <field name="workcenter_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="duration_expected" type="measure"/>
+                <field name="duration" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="axsync_wip_workcenter_view_graph" model="ir.ui.view">
+        <field name="name">axsync.wip.workcenter.graph</field>
+        <field name="model">axsync.wip.workcenter</field>
+        <field name="arch" type="xml">
+            <graph string="Work Center Analysis" type="bar" sample="1">
+                <field name="workcenter_id"/>
+                <field name="duration_expected" type="measure"/>
+                <field name="duration" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="axsync_wip_workcenter_action" model="ir.actions.act_window">
+        <field name="name">Work Center Analysis</field>
+        <field name="res_model">axsync.wip.workcenter</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="context">{'search_default_group_workcenter': 1}</field>
+    </record>
+</odoo>
